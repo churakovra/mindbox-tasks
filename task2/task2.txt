@@ -26,3 +26,24 @@
         id: int primary key
         p_id: int foreign key (product_list)
         c_id: int foreign key (category_list)
+2. Нужно селектить
+    Список всех продуктов с их категориями. Должно получиться что-то вроде
+        select pl.name, ct.name
+        from products_category pc
+        right join product_list pl on pl.id = pc.p_id
+        join category_list ct on ct.id = pc.c_id
+        order by 1 desc, 2 desc;
+
+    Список всех категорий с продуктами. По идее аналогично предыдущему, просто меняем таблички местами и джоины
+        select ct.name, pl.name
+        from products_category pc
+        right join category_list ct on ct.id = pc.c_id
+        join product_list pl on pl.id = pc.p_id
+        order by 1 desc, 2 desc;
+
+    Список всех пар имя продукта-имя категории
+        select pl.name, ct.name
+        from products_category pc
+        join product_list pl on pl.id = pc.p_id
+        join category_list ct on ct.id = pc.c_id
+        order by 1 desc, 2 desc;
