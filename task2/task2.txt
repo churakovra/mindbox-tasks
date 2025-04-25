@@ -1,0 +1,60 @@
+В SQL базе данных есть продукты и категории. Одному продукту может соответствовать много категорий, в одной категории может быть много продуктов.
+
+Напишите HTTP API через которое можно получить:
+
+список всех продуктов с их категориями,
+список категорий с продуктами,
+список всех пар «Имя продукта – Имя категории».
+Если у продукта нет категорий, то он все равно должен выводиться.
+
+Если у категории нет продуктов, то она все равно должна выводиться.
+
+Проект должен содержать docker-compose.yml файл, через который можно запустить сервис и проверить его работу.
+
+-----
+1. БД и ее таблицы.
+Описанная схема должна содержать как минимум 3 таблицы, т.к. формируется связь многие ко многим и необходима нормализация:
+    product_list
+        id: int primary key
+        name: varchar not null
+    category_list
+        id: int primary key
+        name: varchar not null
+
+    -- Сущность, в которой будут храниться пары product-category
+    products_category
+        id: int primary key
+        p_id: int foreign key (product_list)
+        c_id: int foreign key (category_list)
+2. Нужно селектить
+    Список всех продуктов с их категориями. Должно получиться что-то вроде
+        select pl.name, ct.name
+        from products_category pc
+        right join product_list pl on pl.id = pc.p_id
+        join category_list ct on ct.id = pc.c_id
+        order by 1 desc, 2 desc;
+
+    Список всех категорий с продуктами. По идее аналогично предыдущему, просто меняем таблички местами и джоины
+        select ct.name, pl.name
+        from products_category pc
+        right join category_list ct on ct.id = pc.c_id
+        join product_list pl on pl.id = pc.p_id
+        order by 1 desc, 2 desc;
+
+    Список всех пар имя продукта-имя категории
+        select pl.name, ct.name
+        from products_category pc
+        join product_list pl on pl.id = pc.p_id
+        join category_list ct on ct.id = pc.c_id
+        order by 1 desc, 2 desc;
+
+3. Тесты
+    1. Нужно запилить интеграционный тест на гет ручку, на подключение к бд (2 шт всего)
+    2. Нужно запилить юнит тест на каждую ручку api (как минимум 3 теста)
+    Итого: как минимум 5 тестов
+
+4. API
+    Для создания API будет использоваться FastAPI, для запуска сервера uvicorn.
+    Всё отображено в requirements, должно подтягиваться автоматом
+    На каждый запрос будет отдельная ручка, которая будет дергать запрос в бд.
+    Хендлер запроса в бд будет получать данные, обрабатывать их и возвращать уже готовую модель, которая будет возвращаться клиенту

@@ -1,0 +1,15 @@
+#backend
+#api
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+#db
+sqlalchemy
+psycopg2-binary
+
+
+#testing
+pytest
+httpx
