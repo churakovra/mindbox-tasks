@@ -2,6 +2,7 @@
 #api
 fastapi
 uvicorn
+pydantic
 
 #db
 sqlalchemy
