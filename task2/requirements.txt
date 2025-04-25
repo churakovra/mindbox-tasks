@@ -1,0 +1,12 @@
+#backend
+#api
+fastapi
+uvicorn
+
+#db
+sqlalchemy
+psycopg2-binary
+
+
+#testing
+pytest
