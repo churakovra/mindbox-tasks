@@ -1,6 +1,5 @@
 import pytest
-from task3-shape_lib.figure.circle import Circle
-from task3-shape_lib.figure.Triangle import Triangle
+
 
 def test_circle_area():
     c = Circle(2)
