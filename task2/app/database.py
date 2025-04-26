@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, URL, MetaData
 
-from task2.app.config.preferences import *
+from .config.preferences import *
 
 db_url = URL.create(
     drivername="postgresql",
@@ -13,4 +13,7 @@ db_url = URL.create(
 
 engine = create_engine(url=db_url)
 
-metadata_obj = MetaData()
+
+def init_db():
+    metadata_obj = MetaData()
+    metadata_obj.create_all(engine)

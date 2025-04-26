@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer, String
 
-from task2.app.database import metadata_obj
+from ..database import metadata_obj
 
 category_list = Table(
     "category_list",
