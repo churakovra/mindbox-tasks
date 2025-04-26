@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
-from task2.app.database import metadata_obj
+from ..database import metadata_obj
 
 products_category = Table(
     "products_category",

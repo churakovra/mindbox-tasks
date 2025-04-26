@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from task2.app.controllers.get_all_stuff_from_db import get_all_stuff_from_db
-from task2.app.models.all_stuff import AllStuff
+from ..controllers.get_all_stuff_from_db import get_all_stuff_from_db
+from ..models.all_stuff import AllStuff
 
 router = APIRouter()
 
